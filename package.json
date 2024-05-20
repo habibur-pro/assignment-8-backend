@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "main": "./public/app/server.js",
   "license": "MIT",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.18.3",
-    "http-status": "^1.7.4",
-    "mongoose": "^8.2.1"
-  },
   "scripts": {
     "start": "node dist/server.js",
     "start:prod": "node dist/server.js",
@@ -20,6 +13,13 @@
     "prettier:check": "npx prettier --ignore-path .prettierignore --check \"./src/**/*.+(js|ts|json)\"",
     "build": "tsc",
     "prepare": "husky || true"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "http-status": "^1.7.4",
+    "mongoose": "^8.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.1.0",

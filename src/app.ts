@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   })
 })
 
-app.use('/api/v1', router)
+app.use('/api', router)
 
 // not found route
 app.use(notFound)
