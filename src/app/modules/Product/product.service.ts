@@ -37,7 +37,7 @@ const deleteProduct = async (productId: string) => {
   await Product.findOneAndDelete({ id: productId })
   return { message: 'deleted' }
 }
-
+//
 const makeFlash = async (productId: string) => {
   await Product.findOneAndUpdate({ id: productId }, { isFlash: true })
   return { message: 'make flash' }
