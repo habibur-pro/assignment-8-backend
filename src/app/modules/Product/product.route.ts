@@ -2,6 +2,7 @@ import { Router } from 'express'
 import ProductControls from './product.controller'
 
 const router = Router()
+// FD
 router.post('/create-product', ProductControls.createProduct)
 router.get('/', ProductControls.getAllProduct)
 router.get('/flash-sale', ProductControls.getFlashSaleProducts)
