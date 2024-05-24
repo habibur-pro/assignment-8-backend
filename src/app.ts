@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   return sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'WELCOME TO ASIGNMENT 8',
+    message: 'WELCOME TO BACKEND APP',
   })
 })
 
