@@ -4,6 +4,7 @@ import ProductControls from './product.controller'
 const router = Router()
 router.post('/create-product', ProductControls.createProduct)
 router.get('/', ProductControls.getAllProduct)
+router.get('/flash-sale', ProductControls.getFlashSaleProducts)
 router.get('/:productId', ProductControls.getSingleProduct)
 router.patch('/:productId', ProductControls.updateProduct)
 router.delete('/:productId', ProductControls.deleteProduct)

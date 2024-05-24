@@ -12,8 +12,29 @@ const createProduct = asyncHandler(async (req, res) => {
   })
 })
 const getAllProduct = asyncHandler(async (req, res) => {
-  const query = req.query
-  const result = await ProductServices.getAllProduct(query)
+  const limit =
+    typeof req.query.limit === 'string' ? parseInt(req.query.limit, 10) : 0
+  const category = req.query.category as string
+  const rating =
+    typeof req.query.rating === 'string' ? parseInt(req.query.rating, 10) : 0
+  const minPrice =
+    typeof req.query.minPrice === 'string'
+      ? parseInt(req.query.minPrice, 10)
+      : 0
+  const maxPrice =
+    typeof req.query.maxPrice === 'string'
+      ? parseInt(req.query.maxPrice, 10)
+      : 0
+  const isFeatured = typeof req.query.isFeatured === 'string' ? true : false
+  // const query = req.query
+  const result = await ProductServices.getAllProduct(
+    category,
+    rating,
+    minPrice,
+    maxPrice,
+    isFeatured,
+    limit,
+  )
   return sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -72,6 +93,19 @@ const removeFlash = asyncHandler(async (req, res) => {
     data: result,
   })
 })
+
+const getFlashSaleProducts = asyncHandler(async (req, res) => {
+  const limit =
+    typeof req.query.limit === 'string' ? parseInt(req.query.limit, 10) : 0
+  const result = await ProductServices.getFlashSaleProduct(limit)
+  return sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'retrieved all products successfully',
+    data: result,
+  })
+})
+
 const ProductControls = {
   createProduct,
   getAllProduct,
@@ -80,5 +114,6 @@ const ProductControls = {
   deleteProduct,
   makeFlash,
   removeFlash,
+  getFlashSaleProducts,
 }
 export default ProductControls

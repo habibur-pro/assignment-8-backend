@@ -9,16 +9,44 @@ const createProduct = async (payload: TProductCreatePayload) => {
     id: randomGenerator(),
     code: skuGenerator(),
     price: parseFloat(payload.price.toFixed(2)),
-    prevPrice: parseFloat(payload.price.toFixed(2)),
+    prevPrice: parseFloat(payload.prevPrice.toFixed(2)),
   }
   await Product.create(productData)
   return { message: 'product created' }
 }
 
-const getAllProduct = async (payload: TQueryPayload) => {
-  const query = { ...(payload || {}) }
+const getAllProduct = async (
+  category?: string,
+  rating?: number,
+  minPrice?: number,
+  maxPrice?: number,
+  isFeatured?: boolean,
+  limit?: number,
+) => {
+  // const query = { ...(payload || {}) }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const query: any = {}
 
-  const products = await Product.find(query)
+  if (category) {
+    query.category = category
+  }
+  if (isFeatured) {
+    query.isFeatured = isFeatured
+  }
+  if (rating) {
+    query.rating = rating // Assuming you want products with a rating greater than or equal to the specified rating
+  }
+  if ((minPrice && minPrice > 1) || (maxPrice && maxPrice > 1)) {
+    query.price = {}
+    if (minPrice && minPrice > 1) {
+      query.price.$gte = minPrice
+    }
+    if (maxPrice && maxPrice > 1) {
+      query.price.$lte = maxPrice
+    }
+  }
+
+  const products = await Product.find(query).limit(limit || 0)
   return products
 }
 
@@ -46,6 +74,11 @@ const removeFlash = async (productId: string) => {
   await Product.findOneAndUpdate({ id: productId }, { isFlash: false })
   return { message: 'remove flash' }
 }
+const getFlashSaleProduct = async (limit: number) => {
+  const products = await Product.find({ isFlash: true }).limit(limit || 0)
+  return products
+}
+
 const ProductServices = {
   createProduct,
   getAllProduct,
@@ -54,5 +87,6 @@ const ProductServices = {
   deleteProduct,
   makeFlash,
   removeFlash,
+  getFlashSaleProduct,
 }
 export default ProductServices
