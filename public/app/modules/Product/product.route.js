@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const product_controller_1 = __importDefault(require("./product.controller"));
 const router = (0, express_1.Router)();
+// FD
 router.post('/create-product', product_controller_1.default.createProduct);
 router.get('/', product_controller_1.default.getAllProduct);
+router.get('/flash-sale', product_controller_1.default.getFlashSaleProducts);
 router.get('/:productId', product_controller_1.default.getSingleProduct);
 router.patch('/:productId', product_controller_1.default.updateProduct);
 router.delete('/:productId', product_controller_1.default.deleteProduct);

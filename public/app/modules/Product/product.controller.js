@@ -26,8 +26,18 @@ const createProduct = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0
     });
 }));
 const getAllProduct = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const query = req.query;
-    const result = yield product_service_1.default.getAllProduct(query);
+    const limit = typeof req.query.limit === 'string' ? parseInt(req.query.limit, 10) : 0;
+    const category = req.query.category;
+    const rating = typeof req.query.rating === 'string' ? parseInt(req.query.rating, 10) : 0;
+    const minPrice = typeof req.query.minPrice === 'string'
+        ? parseInt(req.query.minPrice, 10)
+        : 0;
+    const maxPrice = typeof req.query.maxPrice === 'string'
+        ? parseInt(req.query.maxPrice, 10)
+        : 0;
+    const isFeatured = typeof req.query.isFeatured === 'string' ? true : false;
+    // const query = req.query
+    const result = yield product_service_1.default.getAllProduct(category, rating, minPrice, maxPrice, isFeatured, limit);
     return (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -86,6 +96,16 @@ const removeFlash = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
+const getFlashSaleProducts = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const limit = typeof req.query.limit === 'string' ? parseInt(req.query.limit, 10) : 0;
+    const result = yield product_service_1.default.getFlashSaleProduct(limit);
+    return (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'retrieved all products successfully',
+        data: result,
+    });
+}));
 const ProductControls = {
     createProduct,
     getAllProduct,
@@ -94,5 +114,6 @@ const ProductControls = {
     deleteProduct,
     makeFlash,
     removeFlash,
+    getFlashSaleProducts,
 };
 exports.default = ProductControls;

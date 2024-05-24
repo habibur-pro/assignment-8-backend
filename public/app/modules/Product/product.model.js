@@ -28,11 +28,19 @@ const ProductSchema = new mongoose_1.Schema({
         type: Number,
         required: [true, 'price is required'],
     },
+    discount: {
+        type: Number,
+        required: [true, 'discount is required'],
+    },
     category: {
         type: String,
         required: [true, 'category is required'],
     },
     isFlash: {
+        type: Boolean,
+        default: false,
+    },
+    isFeatured: {
         type: Boolean,
         default: false,
     },

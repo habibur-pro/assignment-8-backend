@@ -10,14 +10,16 @@ const routes_1 = __importDefault(require("./app/routes"));
 const sendResponse_1 = __importDefault(require("./app/utils/sendResponse"));
 const http_status_1 = __importDefault(require("http-status"));
 const GlobalErrorHanler_1 = __importDefault(require("./app/middleware/GlobalErrorHanler"));
+const morgan_1 = __importDefault(require("morgan"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.use((0, morgan_1.default)('dev'));
 app.get('/', (req, res) => {
     return (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
-        message: 'Welcome to event 360 backend',
+        message: 'WELCOME TO BACKEND APP',
     });
 });
 app.use('/api', routes_1.default);
